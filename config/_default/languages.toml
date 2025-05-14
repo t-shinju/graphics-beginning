@@ -1,0 +1,16 @@
+# ── 多言語設定（languages.toml） ──
+# 各言語ごとのサイトタイトルや方向、並び順を定義します
+
+# 日本語サイト
+[ja]
+languageName    = "日本語"
+languagedirection = "ltr" # テキストの方向（左から右）
+title           = "グラフィックスことはじめ"
+weight          = 1 # 言語切り替えメニューでの並び順
+
+# 英語サイト
+[en]
+languageName = "English"
+languagedirection = "ltr"
+title = "Graphics Beginnings"
+weight = 2

@@ -1,12 +1,18 @@
-# Related contents configuration
-includeNewer = true
-threshold = 60
-toLower = false
+# ── 関連記事設定（related.toml） ──
+# includeNewer: 新しい記事も関連候補に含めるか
+includeNewer = true    # true → 公開日の新しいものも関連記事に含める
+
+# threshold: 閾値スコア。これ未満の関連度は候補から除外
+threshold    = 60      # 60 点以上のスコアのみ関連とみなす
+
+# toLower: 比較時に文字を小文字化するか
+toLower      = false   # false → 元の大文字・小文字を維持してマッチング
+
+# indices: どのフィールドを比較して関連度を算出するか
+[[indices]]
+name   = "tags"        # 記事のタグ同士を比較
+weight = 100           # タグマッチングに対する重み（大きいほど重要）
 
 [[indices]]
-name = "tags"
-weight = 100
-
-[[indices]]
-name = "categories"
-weight = 200
+name   = "categories"  # 記事のカテゴリ同士を比較
+weight = 200           # カテゴリマッチングに対する重み（タグより優先度高め）

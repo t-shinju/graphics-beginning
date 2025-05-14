@@ -1,3 +1,10 @@
-# Permalinks format of each content section
+# ── パーマリンク設定（permalinks.toml） ──
+# 各セクションの URL ルールを定義します
+
+# post セクションの URL パターン
+# content/post/<slug>/ にある記事を /p/<slug>/ という URL で公開します
 post = "/p/:slug/"
+
+# page セクションの URL パターン
+# content/page/<slug>/ にある固定ページを /<slug>/ という URL で公開します
 page = "/:slug/"

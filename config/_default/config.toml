@@ -1,18 +1,16 @@
-# Change baseurl before deploy
+# ── サイト基本設定（config.toml） ──
+# baseURL、言語コード、テーマ、ページネーションなど
+
 baseurl = "https://t-shinju.github.io/graphics-beginning"
-languageCode = "jp"
+languageCode = "ja"
 title = "グラフィックスことはじめ"
 
-# Theme i18n support
-# Available values: en, fr, id, ja, ko, pt-br, zh-cn, zh-tw, es, de, nl, it, th, el, uk, ar
-defaultContentLanguage = "jp"
+# 多言語設定を用いる場合にデフォルト(URLに言語パスがつかない)となる言語
+defaultContentLanguage = "ja"
 
-# Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]
-# This will make .Summary and .WordCount behave correctly for CJK languages.
+# CJK（中国語・日本語・韓国語）向けに文字カウント等を適切に処理するか
 hasCJKLanguage = true
 
-# Change it to your Disqus shortname before using
-disqusShortname = "hugo-theme-stack"
-
 [pagination]
+# ページ切り替えリンクの最大表示数(1, 2, 3, 4, 5, ...となる)
 pagerSize = 5

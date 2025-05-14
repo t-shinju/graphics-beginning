@@ -1,21 +1,27 @@
-# Markdown renderer configuration
+# ── Markdown レンダラー＆コードハイライト設定（markup.toml） ──
+# Goldmark の unsafe／passthrough、目次、シンタックスハイライトを制御
+
+# Goldmark（Hugo が使う Markdown パーサー）のレンダラー設定
 [goldmark.renderer]
+# Markdown 内に書いた <script> や <div> といった生の HTML を無効化せず、そのままページに出力
 unsafe = true
 
+# Goldmark の拡張機能のうち、HTML を「通過」させるパススルー設定
 [goldmark.extensions.passthrough]
+# Markdown 内に記述したあらゆる HTML タグ（<video>、<svg>など）をフィルタリングせずにそのままレンダリング
 enable = true
 
-# LaTeX math support
-# https://gohugo.io/content-management/mathematics/
-[goldmark.extensions.passthrough.delimiters]
+# LaTeX 数式サポートの区切り文字（block/inline）
 block = [['\[', '\]'], ['$$', '$$']]
 inline = [['\(', '\)']]
 
+# 目次設定
 [tableOfContents]
-endLevel = 4
-ordered = true
-startLevel = 2
+startLevel = 2 # 見出し h2 から目次を開始
+endLevel = 4 # 見出し h4 までを含める
+ordered = true # 番号付きリストにする
 
+# ソースコードハイライト設定
 [highlight]
 noClasses = false
 codeFences = true

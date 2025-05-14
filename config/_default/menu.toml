@@ -1,4 +1,6 @@
-# Configure main menu and social menu
+# ── メニュー設定（menu.toml） ──
+# サイト内ナビゲーション（main）とSNSリンク（social）を定義
+
 #[[main]]
 #identifier = "home"
 #name = "Home"
@@ -7,18 +9,21 @@
 #icon = "home"
 #newtab = true
 
+# ── ソーシャルリンク設定 ──
+# GitHub アカウントへのリンク
 [[social]]
-identifier = "github"
-name = "GitHub"
-url = "https://github.com/CaiJimmy/hugo-theme-stack"
-
+identifier = "github"                       # 内部識別子（他と重複しないユニークな値）
+name       = "GitHub"                       # ホバー時に表示されるテキスト
+url        = "https://github.com/t-shinju"  # クリック先の URL
 [social.params]
-icon = "brand-github"
+icon    = "brand-github" # テーマが対応するアイコン名
+newtab  = true           # true にすると別タブで開く
 
+# X（旧 Twitter）アカウントへのリンク
 [[social]]
 identifier = "twitter"
-name = "Twitter"
-url = "https://twitter.com"
-
+name       = "X"
+url        = "https://x.com/new_heavy"
 [social.params]
-icon = "brand-twitter"
+icon    = "brand-twitter"
+newtab  = true

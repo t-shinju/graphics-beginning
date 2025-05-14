@@ -1,150 +1,92 @@
-# Pages placed under these sections will be shown on homepage and archive page.
+# ── テーマ固有パラメータ設定（params.toml） ──
+# 主にホーム表示、RSS、ファビコン、サイドバー、記事表示、ウィジェット、コメント周りの挙動を設定します。
+
+# ホームに表示するセクション
 mainSections = ["post"]
-# Output page's full content in RSS.
+
+# RSSフィードに記事の全文を配信
 rssFullContent = true
 favicon = "/favicon.png"
 
 [footer]
-since = 2020
+since = 2025 # サイト運営開始年
 customText = ""
 
 [dateFormat]
-published = "Jan 02, 2006"
-lastUpdated = "Jan 02, 2006 15:04 MST"
+published = "2006-01-02"
+lastUpdated = "2006/01/02 15:04 MST"
 
 [sidebar]
-emoji = "🍥"
-subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+emoji = "🪫"
+subtitle = "グラフィックス関連技術の備忘録"
 
+# ── サイドバーのアバター設定 ──
 [sidebar.avatar]
-enabled = true
-local = true
-src = "img/avatar.png"
+enabled = true # アバター画像を表示するか
+local = true # ローカル画像を使用するか
+src = "img/avatar.png" # アバター画像のパス（static ディレクトリ基準）
 
+# ── 記事表示設定 ──
 [article]
 headingAnchor = false
 math = false
-readingTime = true
+readingTime = true # 推定読了時間（例：“約3分で読めます”）を表示する
 
 [article.license]
-enabled = true
-default = "Licensed under CC BY-NC-SA 4.0"
+enabled = false # 記事下部にライセンス表記を表示するか
+default = "Licensed under CC BY-NC-SA 4.0" # 表示するライセンス文言のデフォルト
 
-## Widgets
+## ── ホームページ用ウィジェット設定 ──
+# 検索バー
 [[widgets.homepage]]
 type = "search"
 
+# アーカイブ一覧（月別／年別）
 [[widgets.homepage]]
 type = "archives"
-
 [widgets.homepage.params]
-limit = 5
+limit = 5 # 表示する件数の上限
 
+# カテゴリ一覧
 [[widgets.homepage]]
 type = "categories"
-
 [widgets.homepage.params]
-limit = 10
+limit = 10 # 表示する件数の上限
 
+# タグクラウド
 [[widgets.homepage]]
 type = "tag-cloud"
-
 [widgets.homepage.params]
-limit = 10
+limit = 10 # 表示する件数の上限
 
+## ── 固定ページ用ウィジェット設定 ──
+# 記事内目次（Table of Contents）
 [[widgets.page]]
 type = "toc"
 
+# Twitter上でのカード形式を指定
 [opengraph.twitter]
-site = ""
+# site: リンクシェア時に「via @YourTwitterID」のように表示したいTwitterアカウント
+site = "@new_heavy" 
+# "summary_large_image" → 大きな画像＋タイトル＋説明文
+# "summary"             → 小さい画像＋タイトル＋説明文
 card = "summary_large_image"
 
+# ── Open Graph画像のデフォルト設定（defaultImage.opengraph） ──
 [defaultImage.opengraph]
-enabled = false
-local = false
-src = ""
+enabled = false # <meta property="og:image"> を自動挿入してシェア時に指定画像をプレビューに使うか
+local = false # ローカル画像を使用するか
+src = "" # プレビューに使いたい画像のパスまたはURL
 
+# ── カラースキーム（ライト/ダークモード）設定 ──
 [colorScheme]
-toggle = true
-default = "auto"
+toggle = true # ユーザーが切り替えボタンを使えるか
+default = "auto" # デフォルトのモード（"auto"/"light"/"dark"）
 
+# ── アイキャッチ画像の処理設定 ──
 [imageProcessing.cover]
-enabled = true
+enabled = true # カバ―画像のリサイズ＆最適化を有効化
 
+# ── 記事内画像の処理設定 ──
 [imageProcessing.content]
-enabled = true
-
-## Comments
-[comments]
-enabled = true
-provider = "disqus"
-
-[comments.disqusjs]
-shortname = ""
-apiUrl = ""
-apiKey = ""
-admin = ""
-adminLabel = ""
-
-[comments.utterances]
-repo = ""
-issueTerm = "pathname"
-label = ""
-
-[comments.remark42]
-host = ""
-site = ""
-locale = ""
-
-[comments.vssue]
-platform = ""
-owner = ""
-repo = ""
-clientId = ""
-clientSecret = ""
-autoCreateIssue = false
-
-[comments.waline]
-serverURL = ""
-lang = ""
-visitor = ""
-avatar = ""
-emoji = ["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"]
-requiredMeta = ["name", "email", "url"]
-placeholder = ""
-
-[comments.waline.locale]
-admin = "Admin"
-
-[comments.twikoo]
-envId = ""
-region = ""
-path = ""
-lang = ""
-
-[comments.cactus]
-defaultHomeserverUrl = "https://matrix.cactus.chat:8448"
-serverName = "cactus.chat"
-siteName = ""
-
-[comments.giscus]
-repo = ""
-repoID = ""
-category = ""
-categoryID = ""
-mapping = ""
-lightTheme = ""
-darkTheme = ""
-reactionsEnabled = 1
-emitMetadata = 0
-
-[comments.gitalk]
-owner = ""
-admin = ""
-repo = ""
-clientID = ""
-clientSecret = ""
-
-[comments.cusdis]
-host = ""
-id = ""
+enabled = true # 記事中の画像のリサイズ＆最適化を有効化

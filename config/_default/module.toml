@@ -1,2 +1,4 @@
+# ── Hugo Modules を使ったテーマのインポート設定（module.toml） ──
+# 外部テーマを Go Modules 経由で読み込みます
 [[imports]]
 path = "github.com/CaiJimmy/hugo-theme-stack/v3"
