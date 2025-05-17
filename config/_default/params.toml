@@ -6,7 +6,7 @@ mainSections = ["post"]
 
 # RSSフィードに記事の全文を配信
 rssFullContent = true
-favicon = "/assets/img/nebulae_jelly.png"
+favicon = "/nebulae_jelly.png" 
 
 [footer]
 since = 2025 # サイト運営開始年
@@ -24,7 +24,7 @@ subtitle = "グラフィックス関連技術の備忘録"
 [sidebar.avatar]
 enabled = true # アバター画像を表示するか
 local = true # ローカル画像を使用するか
-src = "/assets/img/nebulae_jelly.png" # アバター画像のパス
+src = "/nebulae_jelly.png" # アバター画像のパス（static ディレクトリ基準）
 
 # ── 記事表示設定 ──
 [article]
