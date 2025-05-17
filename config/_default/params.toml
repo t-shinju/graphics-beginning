@@ -6,7 +6,7 @@ mainSections = ["post"]
 
 # RSSフィードに記事の全文を配信
 rssFullContent = true
-favicon = "/favicon.png"
+favicon = "img/nebulae_jelly.png"
 
 [footer]
 since = 2025 # サイト運営開始年
