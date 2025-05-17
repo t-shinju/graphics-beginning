@@ -1,6 +1,6 @@
 ---
 title: "vcpkgを使ってC++ライブラリを管理する手順（Windows + Visual Studio）"
-description: "Windows環境でvcpkgをクローン・ブートストラップ・統合し、ライブラリをインストールする流れの備忘録です。"
+description: "Windows環境でvcpkgを用いてライブラリをインストールする方法"
 slug: vcpkg-setup
 date: 2025-05-17 17:00:00+0900
 image:
@@ -19,19 +19,13 @@ tags:
     - パッケージ管理
 ---
 
-# vcpkgを使ってC++ライブラリを管理する手順（Windows + Visual Studio）
-
 本記事は、Windows + Visual Studio 環境で Microsoft 製のパッケージマネージャ『**vcpkg**』を使い、C++ライブラリを管理する手順の備忘録です。
 
----
+## 前提条件
 
-## 📌 前提条件
-
-- OS：Windows 10 / 11
+- OS：Windows11
 - Visual Studio 2022（C++デスクトップ開発）
 - Gitインストール済み
-
----
 
 ## 📌 vcpkgとは？
 
@@ -39,8 +33,6 @@ vcpkg は Microsoft が提供するオープンソースのC++ライブラリ用
 依存関係の解決やライブラリ導入が簡単に行えます。
 
 公式リポジトリ：[vcpkg (GitHub)](https://github.com/microsoft/vcpkg)
-
----
 
 ## 📌 作業手順
 
@@ -52,21 +44,19 @@ vcpkg は Microsoft が提供するオープンソースのC++ライブラリ用
 
 ---
 
-## 🚩 1. vcpkgをクローン
+1. vcpkgをクローン
 
-PowerShellで以下を実行します。
+PowerShellやコマンドプロンプトで以下を実行します。
 
 ```powershell
-cd C:\tools
+cd C:\Tools
 git clone https://github.com/microsoft/vcpkg.git
 cd vcpkg
 ```
 
-※パスは任意で変更可です。
+※パス(C:\Tools)は任意で変更可能
 
----
-
-## 🚩 2. ブートストラップ（セットアップ）
+1. ブートストラップ
 
 vcpkg.exeを作成します。
 
@@ -76,9 +66,7 @@ vcpkg.exeを作成します。
 
 成功すると vcpkg.exe が生成されます。
 
----
-
-## 🚩 3. Visual Studioとの統合
+1. Visual Studioとの統合
 
 Visual Studioでvcpkgのライブラリを自動認識します。
 
@@ -86,9 +74,7 @@ Visual Studioでvcpkgのライブラリを自動認識します。
 .\vcpkg integrate install
 ```
 
----
-
-## 🚩 4. ライブラリのインストール
+1. ライブラリのインストール
 
 例として、以下のライブラリをインストールします。
 
@@ -101,9 +87,7 @@ Visual Studioでvcpkgのライブラリを自動認識します。
 .\vcpkg install glew:x64-windows glfw3:x64-windows glm:x64-windows eigen3:x64-windows
 ```
 
----
-
-## 🚩 5. Visual Studioで動作確認
+1. Visual Studioで動作確認
 
 以下のコードでビルド・実行確認をします。
 
@@ -135,39 +119,6 @@ int main() {
 }
 ```
 
----
-
-## 🚩 トラブルシューティング
-
-### 🔺 Visual Studioが見つからない場合
-
-以下のエラーが出た場合：
-
-```
-error: Unable to find a valid Visual Studio instance
-```
-
-Visual Studio Installer で『C++ によるデスクトップ開発』を追加してください。
-
----
-
-## 🚩 vcpkgを再インストールする方法
-
-問題が起きた場合、以下の方法で再インストール可能です。
-
-```powershell
-.\vcpkg integrate remove
-cd ..
-Remove-Item -Recurse -Force .\vcpkg
-
-git clone https://github.com/microsoft/vcpkg.git
-cd vcpkg
-.\bootstrap-vcpkg.bat
-.\vcpkg integrate install
-```
-
----
-
 ## 📚 参考リンク
 
 - [vcpkg (GitHub)](https://github.com/microsoft/vcpkg)
@@ -176,5 +127,3 @@ cd vcpkg
 - [GLFW](https://www.glfw.org/)
 - [GLM](https://github.com/g-truc/glm)
 - [Eigen](https://eigen.tuxfamily.org/)
-
-以上です。
