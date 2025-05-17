@@ -23,7 +23,6 @@ subtitle = "グラフィックス関連技術の備忘録"
 # ── サイドバーのアバター設定 ──
 [sidebar.avatar]
 enabled = true # アバター画像を表示するか
-local = true # ローカル画像を使用するか
 src = "/nebulae_jelly.png" # アバター画像のパス（static ディレクトリ基準）
 
 # ── 記事表示設定 ──
