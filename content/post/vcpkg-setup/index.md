@@ -1,6 +1,6 @@
 ---
 title: "vcpkgによるC++ライブラリの導入（Windows + Visual Studio）"
-description: "Windows環境でvcpkgを用いてライブラリをインストールする方法"
+description: "vcpkgでGLEW, GLFW, GLM, Eigenをインストールする手順"
 slug: vcpkg-setup
 date: 2025-05-17 17:00:00+0900
 image:
