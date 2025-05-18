@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>パッケージ管理 on グラフィックスことはじめ</title><link>https://t-shinju.github.io/graphics-beginning/tags/%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E7%AE%A1%E7%90%86/</link><description>Recent content in パッケージ管理 on グラフィックスことはじめ</description><generator>Hugo -- gohugo.io</generator><language>ja</language><lastBuildDate>Sat, 17 May 2025 17:00:00 +0900</lastBuildDate><atom:link href="https://t-shinju.github.io/graphics-beginning/tags/%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>vcpkgによるC++ライブラリの導入（Windows + Visual Studio）</title><link>https://t-shinju.github.io/graphics-beginning/p/vcpkg-setup/</link><pubDate>Sat, 17 May 2025 17:00:00 +0900</pubDate><guid>https://t-shinju.github.io/graphics-beginning/p/vcpkg-setup/</guid><description>&lt;p>本記事は、Windows + Visual Studio 環境で Microsoft 製のパッケージマネージャ『&lt;strong>vcpkg&lt;/strong>』を使い、C++ライブラリを管理する手順の備忘録です。&lt;/p>
+&lt;h2 id="vcpkgとは">vcpkgとは？
+&lt;/h2>&lt;p>vcpkg は Microsoft が提供するオープンソースのC++ライブラリ用パッケージマネージャです。&lt;br>
+依存関係の解決やライブラリ導入が簡単に行えます。&lt;/p>
+&lt;p>公式リポジトリ：&lt;a class="link" href="https://github.com/microsoft/vcpkg" target="_blank" rel="noopener"
+>vcpkg (GitHub)&lt;/a>&lt;/p>
+&lt;h2 id="前提条件">前提条件
+&lt;/h2>&lt;ul>
+&lt;li>OS：Windows11&lt;/li>
+&lt;li>Visual Studio 2022（C++デスクトップ開発）&lt;/li>
+&lt;li>Gitインストール済み&lt;/li>
+&lt;/ul>
+&lt;h2 id="作業手順">作業手順
+&lt;/h2>&lt;ol>
+&lt;li>vcpkgをクローン&lt;/li>
+&lt;li>ブートストラップ&lt;/li>
+&lt;li>Visual Studioと統合&lt;/li>
+&lt;li>ライブラリのインストール&lt;/li>
+&lt;li>Visual Studioで動作確認&lt;/li>
+&lt;/ol>
+&lt;h3 id="vcpkgをクローン">vcpkgをクローン
+&lt;/h3>&lt;p>PowerShellやコマンドプロンプトで以下を実行します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd &lt;/span>&lt;span class="n">C:&lt;/span>&lt;span class="p">\&lt;/span>&lt;span class="n">Tools&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">git&lt;/span> &lt;span class="n">clone&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="p">//&lt;/span>&lt;span class="n">github&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="p">/&lt;/span>&lt;span class="n">microsoft&lt;/span>&lt;span class="p">/&lt;/span>&lt;span class="n">vcpkg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">git&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd &lt;/span>&lt;span class="n">vcpkg&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>※パス(C:\Tools)は任意で変更可能&lt;/p>
+&lt;h3 id="ブートストラップ">ブートストラップ
+&lt;/h3>&lt;p>vcpkg.exeを作成します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.\&lt;/span>&lt;span class="nb">bootstrap-vcpkg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">bat&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>成功すると vcpkg.exe が生成されます。&lt;/p>
+&lt;h3 id="visual-studioとの統合">Visual Studioとの統合
+&lt;/h3>&lt;p>Visual Studioでvcpkgのライブラリを自動認識します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.\&lt;/span>&lt;span class="n">vcpkg&lt;/span> &lt;span class="n">integrate&lt;/span> &lt;span class="n">install&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ライブラリのインストール">ライブラリのインストール
+&lt;/h3>&lt;p>例として、以下のライブラリをインストールします。&lt;/p>
+&lt;ul>
+&lt;li>GLEW&lt;/li>
+&lt;li>GLFW3&lt;/li>
+&lt;li>GLM&lt;/li>
+&lt;li>Eigen3&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-powershell" data-lang="powershell">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.\&lt;/span>&lt;span class="n">vcpkg&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">glew&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="nb">x64-windows&lt;/span> &lt;span class="n">glfw3&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="nb">x64-windows&lt;/span> &lt;span class="n">glm&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="nb">x64-windows&lt;/span> &lt;span class="n">eigen3&lt;/span>&lt;span class="err">:&lt;/span>&lt;span class="nb">x64-windows&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="visual-studioで動作確認">Visual Studioで動作確認
+&lt;/h3>&lt;p>以下のコードでビルド・実行確認をします。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;GL/glew.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;GLFW/glfw3.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;glm/glm.hpp&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;Eigen/Core&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">glfwInit&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GLFWwindow&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">window&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">glfwCreateWindow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">640&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">480&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;vcpkg Test&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">nullptr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">nullptr&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">glfwMakeContextCurrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">glewInit&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">GLEW_OK&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">glm&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">vec3&lt;/span> &lt;span class="n">glm_vec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">2.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Eigen&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Vector3f&lt;/span> &lt;span class="n">eigen_vec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">4.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">5.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">6.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">glfwWindowShouldClose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">glfwSwapBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">glfwPollEvents&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">glfwDestroyWindow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">glfwTerminate&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考リンク">参考リンク
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/microsoft/vcpkg" target="_blank" rel="noopener"
+>vcpkg (GitHub)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://glew.sourceforge.net/" target="_blank" rel="noopener"
+>GLEW&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.glfw.org/" target="_blank" rel="noopener"
+>GLFW&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/g-truc/glm" target="_blank" rel="noopener"
+>GLM&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://eigen.tuxfamily.org/" target="_blank" rel="noopener"
+>Eigen&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
